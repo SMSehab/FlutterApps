@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "69655729709",
+    "project_id": "beca-kena",
+    "storage_bucket": "beca-kena.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69655729709:android:cad75b51511208f2830aa4",
+        "android_client_info": {
+          "package_name": "com.example.kinbo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69655729709-7p29t8burljgh4j5tjumn4q6dnnirtot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHEZgotBRIJ-XOK-K5Jqlbo-HBNewahF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69655729709-7p29t8burljgh4j5tjumn4q6dnnirtot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
