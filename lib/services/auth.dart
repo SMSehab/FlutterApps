@@ -37,7 +37,7 @@ class AuthService {
       User user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
-      print(e.toString());
+    print(e.toString());
       return null;
     }
   }
@@ -49,7 +49,7 @@ class AuthService {
           email: email, password: password);
       User user = result.user;
       await DatabaseService(uid: user.uid).setNewUserData(
-        name: 'My name',
+        name: 'new user',
         bio: 'I am a new user.',
         //location: 'home',
         //time: '7pm',

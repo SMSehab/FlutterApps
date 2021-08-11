@@ -7,7 +7,7 @@ class Buddy {
   final String bio;
   final GeoPoint location;
   final String image;
-  final List<String> friends;
+  final List friends;
   final String time;
 
   Buddy({
@@ -27,7 +27,7 @@ class Friend {
   final String bio;
   final GeoPoint location;
   final String image;
-  final List<String> friends;
+  final List friends;
   final String time;
 
   Friend({
@@ -40,3 +40,4 @@ class Friend {
     this.time,
   });
 }
+

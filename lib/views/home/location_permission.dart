@@ -14,7 +14,7 @@ class LocationPermissionPage extends StatelessWidget {
         style: TextStyle(
               fontSize: 22.00),),
         content: Text(
-          "Provide Location Permission so that your friends be able to see where you are and you can see where they are. Your location is always shared among all users. ",
+          "Provide Location Permission so that your friends be able to see where you are and you can see where they are. Your location gets updated only when you use the app. ",
           softWrap: true,
         ),
         actions: [

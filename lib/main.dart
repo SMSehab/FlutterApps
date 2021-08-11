@@ -8,7 +8,7 @@ import 'package:kinbo/model/user.dart';
 import 'package:kinbo/services/auth.dart';
 import 'package:kinbo/services/database.dart';
 import 'package:kinbo/services/location.dart';
-import 'package:kinbo/views/profile/user_panel.dart';
+import 'package:kinbo/views/user_panel/user_panel.dart';
 import 'package:kinbo/views/wrapper.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +34,8 @@ class App extends StatelessWidget {
         StreamProvider<UserObj>.value(
             initialData: null,//UserObj(), 
             value: AuthService().user),
-        StreamProvider<List<Buddy>>.value(
-            initialData: null, value: DatabaseService().buddies),
+        // StreamProvider<List<Buddy>>.value(
+        //     initialData: null, value: DatabaseService().buddies),
         StreamProvider<LocationData>.value(
             initialData: null, 
             value: LocationService().getLocation),
@@ -58,7 +58,7 @@ class App extends StatelessWidget {
               Brightness.dark, //navigation bar icons' color
         ),
         child: MaterialApp(
-          title: 'Locate Buddy',
+          title: 'koi mama?',
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {

@@ -11,7 +11,8 @@ class LocationService {
     if (location.latitude != null && location.latitude != null) {
       GeoPoint position = GeoPoint(location.latitude, location.longitude);
       DateTime now = DateTime.now();
-      String time = DateFormat('dd-MM – kk:mm').format(now);
+      // String time = DateFormat('kk:mm, dd-MM-yy').format(now);
+      String time = DateFormat('h:mm a,   EEE, MMMM d y').format(now);
       print('user data uploading.........');
       await DatabaseService(uid: uid)
           .updateUserData(location: position, time: time, uuid: uid);
