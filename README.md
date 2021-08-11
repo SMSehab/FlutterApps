@@ -1,16 +1,10 @@
-# kinbo
+# Koi Mama ?
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A mobile application to track all friends simultaneously. It shows real
+time location on Google Map with profile picture as mini-marker, or
+shows their last location and time when they were active. A user can
+create/log into his account, make his own profile, follow his friend by
+searching with user name and also can see who he follows and is
+followed by. Its was ensured that no one can find a user without being
+provided an authentic user ID. The application was developed using
+Flutter and Dart, and Firebase as backend.
