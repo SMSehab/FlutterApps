@@ -12,6 +12,13 @@ import 'package:kinbo/views/shared/loading.dart';
 import 'package:kinbo/views/user_panel/profile/upload_photo.dart';
 import 'package:provider/provider.dart';
 
+
+// Every user's profile view,
+// shows user's profile box,
+// list of his follower and following,
+// sign-out and update button.
+
+
 class Profile extends StatefulWidget {
   String uid;
   Profile(this.uid);
@@ -215,7 +222,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox(
                   height: 2.0,
-                ), // error can be here. for  friend stream.
+                ), 
                 ListBuilder(
                   _following,
                   user.uid,
@@ -229,7 +236,7 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox(
                   height: 2.0,
-                ), // error can be here. for  friend stream.
+                ),
                 ListBuilder(
                   _followers,
                   user.uid,

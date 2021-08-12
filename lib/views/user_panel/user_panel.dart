@@ -8,6 +8,9 @@ import 'package:kinbo/views/user_panel/people/find_friends.dart';
 import 'package:kinbo/views/user_panel/profile/profile.dart';
 import 'package:provider/provider.dart';
 
+
+// two tabs to switch between profile and find friend. 
+
 class UserPanel extends StatefulWidget {
   // final String uid;
 

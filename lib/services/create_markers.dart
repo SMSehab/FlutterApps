@@ -32,6 +32,9 @@ class CreateMarkers {
   Set<Marker> createMarkers(
       List<Friend> buddies, Map<String, BitmapDescriptor> icons) {
     Set<Marker> markers = {};
+    //Iterate the frndlist and 
+    //set image as marker if has one, 
+    //otherwise set default marker
     for (int i = 0; (i < buddies.length); i++) {
       Friend buddyData = buddies[i];
       if (buddyData.location != null) {
@@ -52,7 +55,7 @@ class CreateMarkers {
     }
     return markers;
   }
-
+  // helper function to customize image. 
   static Future<BitmapDescriptor> convertImageFileToBitmapDescriptor(
       File imageFile,
       {int size = 130,
@@ -96,58 +99,59 @@ class CreateMarkers {
     final _image = await pictureRecorder
         .endRecording()
         .toImage(size, (size * 1.1).toInt());
-    // ui.ImageByteFormat
     final data = await _image.toByteData(format: ui.ImageByteFormat.png);
 
     //convert PNG bytes as BitmapDescriptor
     return BitmapDescriptor.fromBytes(data.buffer.asUint8List());
   }
 
-  Future<BitmapDescriptor> paint(File file) async {
-    Size size = Size(500, 500);
-    final center = Offset(50, 50);
-    final radius = min(size.width, size.height) / 8;
-    final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
-    final Canvas canvas = Canvas(pictureRecorder);
-    final bytes = new Uint8List.fromList(await file.readAsBytes());
-    final Completer<ui.Image> completer = new Completer();
 
-    ui.Image image;
-    // ui.decodeImageFromList(bytes, (ui.Image img) {
-    //   image = img;
-    // });
-    ui.decodeImageFromList(bytes, (ui.Image img) {
-      return completer.complete(img);
-    });
-    image = await completer.future;
+  // helper function to make custom marker
+  // Future<BitmapDescriptor> paint(File file) async {
+  //   Size size = Size(500, 500);
+  //   final center = Offset(50, 50);
+  //   final radius = min(size.width, size.height) / 8;
+  //   final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
+  //   final Canvas canvas = Canvas(pictureRecorder);
+  //   final bytes = new Uint8List.fromList(await file.readAsBytes());
+  //   final Completer<ui.Image> completer = new Completer();
 
-    // The circle should be paint before or it will be hidden by the path
-    Paint paintCircle = Paint()..color = Colors.black;
-    Paint paintBorder = Paint()
-      ..color = Colors.white
-      ..strokeWidth = size.width / 36
-      ..style = PaintingStyle.stroke;
-    canvas.drawCircle(center, radius, paintCircle);
-    canvas.drawCircle(center, radius, paintBorder);
+  //   ui.Image image;
+  //   // ui.decodeImageFromList(bytes, (ui.Image img) {
+  //   //   image = img;
+  //   // });
+  //   ui.decodeImageFromList(bytes, (ui.Image img) {
+  //     return completer.complete(img);
+  //   });
+  //   image = await completer.future;
 
-    double drawImageWidth = 0;
-    double drawImageHeight = -size.height * 0.8;
+  //   // The circle should be paint before or it will be hidden by the path
+  //   Paint paintCircle = Paint()..color = Colors.black;
+  //   Paint paintBorder = Paint()
+  //     ..color = Colors.white
+  //     ..strokeWidth = size.width / 36
+  //     ..style = PaintingStyle.stroke;
+  //   canvas.drawCircle(center, radius, paintCircle);
+  //   canvas.drawCircle(center, radius, paintBorder);
 
-    Path path = Path()
-      ..addOval(Rect.fromLTWH(drawImageWidth, drawImageHeight,
-          image.width.toDouble(), image.height.toDouble()));
+  //   double drawImageWidth = 0;
+  //   double drawImageHeight = -size.height * 0.8;
 
-    canvas.clipPath(path);
+  //   Path path = Path()
+  //     ..addOval(Rect.fromLTWH(drawImageWidth, drawImageHeight,
+  //         image.width.toDouble(), image.height.toDouble()));
 
-    canvas.drawImage(
-        image, new Offset(drawImageWidth, drawImageHeight), new Paint());
+  //   canvas.clipPath(path);
 
-    final _image = await pictureRecorder.endRecording().toImage(
-        300, 300); //(image.width.toInt(), (image.height * 1.1).toInt());
-    // ui.ImageByteFormat
-    final data = await _image.toByteData(format: ui.ImageByteFormat.png);
+  //   canvas.drawImage(
+  //       image, new Offset(drawImageWidth, drawImageHeight), new Paint());
 
-    //convert PNG bytes as BitmapDescriptor
-    return BitmapDescriptor.fromBytes(data.buffer.asUint8List());
-  }
+  //   final _image = await pictureRecorder.endRecording().toImage(
+  //       300, 300); //(image.width.toInt(), (image.height * 1.1).toInt());
+  //   // ui.ImageByteFormat
+  //   final data = await _image.toByteData(format: ui.ImageByteFormat.png);
+
+  //   //convert PNG bytes as BitmapDescriptor
+  //   return BitmapDescriptor.fromBytes(data.buffer.asUint8List());
+  // }
 }

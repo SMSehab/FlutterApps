@@ -7,6 +7,4 @@ class UserLocationData {
 
   UserLocationData({this.myLocation});
 
-  // Make marker method here.
-
 }

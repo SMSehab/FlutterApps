@@ -4,6 +4,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:kinbo/services/database.dart';
 
+
+// show the profile image box.
+// if there is image, displays it,
+// otherwise shows 'upload image' icon.
+// on tap, an upload page shows up
+// to select image from gallery or by camera.
+// After then uploads the image.
+
+
 class UploadPhoto extends StatefulWidget {
   //const UploadPhoto({ Key? key }) : super(key: key);
   String _prevImage;

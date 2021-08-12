@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
+// custom input decoration for all input text boxes.
 InputDecoration textInputDecoration(String hint) {
   return InputDecoration(
     labelStyle: TextStyle(fontSize: 13),

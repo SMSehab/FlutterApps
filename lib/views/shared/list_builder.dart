@@ -4,6 +4,10 @@ import 'package:kinbo/services/database.dart';
 import 'package:kinbo/views/shared/dialog_box.dart';
 import 'package:kinbo/views/shared/loading.dart';
 
+
+//List builder to show a list of specific users 
+// with their name, bio, image on a card.
+
 class ListBuilder extends StatefulWidget {
   final List buddy;
   final String user;
@@ -36,6 +40,10 @@ class _ListBuilderState extends State<ListBuilder> {
       return Loading();
     }
   }
+
+
+
+  // ListTile for every user. 
 
   Widget listTile(buddy, String myUid) {
     List friendz = buddy.friends ?? [];

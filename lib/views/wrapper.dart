@@ -10,6 +10,11 @@ import 'package:kinbo/views/home/mapview.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
+// A wrapper widget to determine the app stages.
+// whether to show authentication page,
+// or the hompage/mapview page,
+// or the enable-location-pop-up page
+//in the case that user turned the location service off accidently.
 
 class Wrapper extends StatelessWidget {
   //const Wrapper({ Key? key }) : super(key: key);
@@ -22,7 +27,7 @@ class Wrapper extends StatelessWidget {
     final _locationEnabled = Provider.of<bool>(context);
 
     print(_locationData);
-    if (_user != null ) {
+    if (_user != null) {
       LocationService().uploadMyLocationData(_user.uid, _locationData);
     }
     if (_locationEnabled != null) {
@@ -39,12 +44,10 @@ class Wrapper extends StatelessWidget {
                         initialData: null,
                         value: DatabaseService(uid: _user.uid).friends),
                     StreamProvider<UserData>.value(
-                        initialData:null,
+                        initialData: null,
                         value: DatabaseService(uid: _user.uid).userData),
                   ],
-                  child: MapView(
-                      uid: _user
-                          .uid), 
+                  child: MapView(uid: _user.uid),
                 );
     } else {
       return Loading();

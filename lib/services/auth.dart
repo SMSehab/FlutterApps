@@ -6,18 +6,16 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Create User Object locally based on Firebase User.
-
   UserObj _userFromFirebaseUser(User user) {
     return user != null ? UserObj(uid: user.uid) : null;
   }
 
-  // User state stream
-
+  // User auth state stream
   Stream<UserObj> get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
-  // Anon
+  // Anonymous sign in (not used)
   Future signInAnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
@@ -29,7 +27,7 @@ class AuthService {
     }
   }
 
-  // sign in
+  // sign in with email and passwork
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -51,8 +49,6 @@ class AuthService {
       await DatabaseService(uid: user.uid).setNewUserData(
         name: 'new user',
         bio: 'I am a new user.',
-        //location: 'home',
-        //time: '7pm',
       );
       return _userFromFirebaseUser(user);
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+// User Model in different name to avoid conflict during stream call.
 class Buddy {
   final String uid; 
   final String name;

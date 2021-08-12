@@ -3,6 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+
+
+
+// when the name of a certain user tapped, 
+// this dialog box shows up with user name, 
+// profile picture, and descriptions.
 class DialogBox extends StatefulWidget {
   final String title, descriptions, image;
 

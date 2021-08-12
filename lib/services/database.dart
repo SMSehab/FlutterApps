@@ -8,9 +8,11 @@ class DatabaseService {
 
   DatabaseService({this.uid, this.query});
 
+  // Instance of database collection
   final CollectionReference buddyCollection =
       FirebaseFirestore.instance.collection('buddies');
 
+  //updates specific user data.
   Future updateUserData(
       {String uuid,
       String name,
@@ -30,6 +32,7 @@ class DatabaseService {
     });
   }
 
+  // Sets new user data during registration
   Future setNewUserData(
       {String uuid,
       String name,
@@ -51,7 +54,7 @@ class DatabaseService {
 
 //
 //--------------------------------------------------------------------
-// Create Buddy model locally from snapshot.
+// Create list of Buddy model locally from snapshot.
   List<Buddy> _buddyListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Buddy(
@@ -66,7 +69,7 @@ class DatabaseService {
     }).toList();
   }
 
-  // Stream to notify only search user update.
+  // Stream to notify for only searched user's update.
   Stream<List<Buddy>> get buddySearch {
     return buddyCollection
         //.orderBy('bio')
@@ -75,7 +78,7 @@ class DatabaseService {
         .map(_buddyListFromSnapshot);
   }
 
-  // Stream to notify for ALL users update.
+  // Stream to notify for ALL users' update from whole database.
   Stream<List<Buddy>> get buddies {
     return buddyCollection.snapshots().map(_buddyListFromSnapshot);
   }
@@ -99,7 +102,7 @@ class DatabaseService {
     }
   }
 
-  // Stream for specific user data.
+  // Stream for a specific user data.
   Stream<UserData> get userData {
     return buddyCollection.doc(uid).snapshots().map(userDataFromSnapshot);
   }
@@ -121,7 +124,7 @@ class DatabaseService {
     }).toList();
   }
 
-  // Stream to notify for ALL friends update.
+  // Stream to notify for only friends' update.
   Stream<List<Friend>> get friends {
     return buddyCollection
         .where('friends', arrayContainsAny: [this.uid])
@@ -136,7 +139,6 @@ class DatabaseService {
     return buddyCollection
         .where('friends', arrayContainsAny: [this.uid])
         .get()
-        .then(
-            _friendListFromSnapshot);
+        .then(_friendListFromSnapshot);
   }
 }

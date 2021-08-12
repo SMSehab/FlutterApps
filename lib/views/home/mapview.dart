@@ -9,6 +9,9 @@ import 'package:kinbo/views/user_panel/user_panel.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
+
+// shows all friends on google map,
+// shows their profile pic as marker, 
 class MapView extends StatefulWidget {
   final String uid;
 
@@ -33,10 +36,12 @@ class _MapViewState extends State<MapView> {
 
   @override
   void initState() {
+    // gets all friends marker icon initially.
     _getMarkerIcon();
     super.initState();
   }
 
+  // gets the markers. 
   Future<void> _getMarkerIcon() async {
     List<Friend> buddyListForImage =
         await DatabaseService(uid: widget.uid).buddyImages();
@@ -44,6 +49,7 @@ class _MapViewState extends State<MapView> {
     icons = await CreateMarkers().imageIcon(buddyListForImage);
   }
 
+  // toggles map between normal view and satellite view. 
   void _onMapTypeButtonPressed() {
     setState(() {
       _currentMapType = _currentMapType == MapType.normal

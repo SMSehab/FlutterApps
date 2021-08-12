@@ -14,6 +14,7 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   bool showSignIn = true;
 
+  // toggle between sign-in page and registration page
   void toggleView() {
     setState(() => showSignIn = !showSignIn);
   }

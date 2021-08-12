@@ -9,6 +9,10 @@ import 'package:kinbo/views/shared/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+// Find friend page, where a user can search for his friend.
+
+
 class FindFriends extends StatefulWidget {
   // final String uid;
   // FindFriends(this.uid);
@@ -36,6 +40,8 @@ class _FindFriendsState extends State<FindFriends> {
               children: [
                 searchBox(),
                 (_buddies.length == 0)
+                    // if there is no user on list, 
+                    // shows this text. 
                     ? Container(
                         decoration: BoxDecoration(
                             //color: Colors.greenAccent,
@@ -59,6 +65,9 @@ For any suggestion, please contact us on smsehab0@gmail.com .
                             fontWeight: FontWeight.w400,
                           )),
                         ))
+                    
+                    
+                    // otherwise shows the result list
                     : Expanded(
                         child: ListBuilder(
                           _buddies,
@@ -74,6 +83,8 @@ For any suggestion, please contact us on smsehab0@gmail.com .
         });
   }
 
+
+  // search box to search user by name
   Widget searchBox() {
     return Card(
         //margin: EdgeInsets.fromLTRB(8.00, 0, 8.00, 0),
