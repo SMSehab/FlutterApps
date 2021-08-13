@@ -12,7 +12,7 @@ class UserData {
   final String bio;
   final GeoPoint location;
   final String image;
-  final List<String> friends;
+  final List friends;
   final String time;
 
   UserData({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kinbo/services/auth.dart';
-import 'package:kinbo/shared/constant.dart';
+import 'package:kinbo/views/shared/input_decoration.dart';
 
 class SignInPage extends StatefulWidget {
   //const SignInPage({ Key? key }) : super(key: key);

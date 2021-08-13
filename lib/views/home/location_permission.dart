@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kinbo/services/location.dart';
 import 'package:location/location.dart';
 
+// this function is being called constantly.
+// whenever user turn off the location, a dialog page keeps showing up
+// and force the user to grant permission or enable location. 
+
 class LocationPermissionPage extends StatelessWidget {
   // const LocationPermission({ Key? key }) : super(key: key);
 
@@ -14,7 +18,7 @@ class LocationPermissionPage extends StatelessWidget {
         style: TextStyle(
               fontSize: 22.00),),
         content: Text(
-          "Provide Location Permission so that your friends be able to see where you are and you can see where they are. Your location is always shared among all users. ",
+          "Provide Location Permission so that your friends be able to see where you are and you can see where they are. Your location gets updated only when you use the app. ",
           softWrap: true,
         ),
         actions: [

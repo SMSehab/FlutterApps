@@ -4,19 +4,22 @@ import 'package:kinbo/model/user.dart';
 
 class DatabaseService {
   final String uid;
+  String query;
 
-  DatabaseService({this.uid});
+  DatabaseService({this.uid, this.query});
 
+  // Instance of database collection
   final CollectionReference buddyCollection =
       FirebaseFirestore.instance.collection('buddies');
 
+  //updates specific user data.
   Future updateUserData(
       {String uuid,
       String name,
       String bio,
       GeoPoint location,
       String time,
-      List<String> friends,
+      List friends,
       String image}) async {
     return await buddyCollection.doc(uid).update({
       if (name != null) 'name': name,
@@ -29,13 +32,14 @@ class DatabaseService {
     });
   }
 
+  // Sets new user data during registration
   Future setNewUserData(
       {String uuid,
       String name,
       String bio,
       GeoPoint location,
       String time,
-      List<String> friends,
+      List friends,
       String image}) async {
     return await buddyCollection.doc(uid).set({
       'name': name,
@@ -50,8 +54,7 @@ class DatabaseService {
 
 //
 //--------------------------------------------------------------------
-//
-  // creating buddy object from snapshot.
+// Create list of Buddy model locally from snapshot.
   List<Buddy> _buddyListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Buddy(
@@ -66,21 +69,24 @@ class DatabaseService {
     }).toList();
   }
 
-  // Stream to notify for user update.
+  // Stream to notify for only searched user's update.
+  Stream<List<Buddy>> get buddySearch {
+    return buddyCollection
+        //.orderBy('bio')
+        .where('name', isEqualTo: query ?? "")
+        .snapshots()
+        .map(_buddyListFromSnapshot);
+  }
+
+  // Stream to notify for ALL users' update from whole database.
   Stream<List<Buddy>> get buddies {
     return buddyCollection.snapshots().map(_buddyListFromSnapshot);
   }
 
-  // Method to initiate marker icons.
-  Future<List<Buddy>> buddyImages() {
-    return buddyCollection.get().then(
-        _buddyListFromSnapshot); // (value) => _buddyListFromSnapshot(value));
-  }
-
 //
 //-------------------------------------------------------------
-//
-  UserData _userDataFromSnapshot(DocumentSnapshot doc) {
+// Create UserData model locally
+  UserData userDataFromSnapshot(DocumentSnapshot doc) {
     if (doc != null) {
       return UserData(
               uid: uid,
@@ -96,15 +102,14 @@ class DatabaseService {
     }
   }
 
-  // Stream to populate user previous data.
+  // Stream for a specific user data.
   Stream<UserData> get userData {
-    return buddyCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+    return buddyCollection.doc(uid).snapshots().map(userDataFromSnapshot);
   }
 
 //
 //--------------------------------------------------------------------
-//
-//  creating friend object from snapshot.
+// Create Friend model locally from snapshot.
   List<Friend> _friendListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Friend(
@@ -119,11 +124,21 @@ class DatabaseService {
     }).toList();
   }
 
-  // Stream to update friend list.
+  // Stream to notify for only friends' update.
   Stream<List<Friend>> get friends {
     return buddyCollection
-        .where('friends', arrayContainsAny: ['uid'])
+        .where('friends', arrayContainsAny: [this.uid])
         .snapshots()
         .map(_friendListFromSnapshot);
+  }
+
+//
+//----------------------------------------------------------------------
+// Future method to initiate friends' marker icons.
+  Future<List<Friend>> buddyImages() {
+    return buddyCollection
+        .where('friends', arrayContainsAny: [this.uid])
+        .get()
+        .then(_friendListFromSnapshot);
   }
 }
