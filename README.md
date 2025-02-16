@@ -53,9 +53,9 @@ LocateBuddy is a real-time friend-tracking mobile application that allows you to
 ### Installation
 
 1.  Clone the repository:
-``` git clone https://github.com/yourusername/ yourrepository. git```
+``` git clone https://github.com/SMSehab/LocateBuddy.git```
 2.  Navigate to the project directory:
-``` cd yourrepository ```
+``` cd LocateBuddy ```
 3.  Get the dependencies:```flutter pub get```
 4.  Run the app: ```flutter run```
 
