@@ -4,7 +4,7 @@ import 'package:kinbo/views/shared/input_decoration.dart';
 
 class SignInPage extends StatefulWidget {
   //const SignInPage({ Key? key }) : super(key: key);
-  final Function toggleView;
+  final Function ? toggleView;
   SignInPage({this.toggleView});
 
   @override
@@ -38,7 +38,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             ),
             onPressed: () {
-              widget.toggleView();
+              widget.toggleView!();
             },
           ),
         ],
@@ -52,7 +52,7 @@ class _SignInPageState extends State<SignInPage> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration('Email'),
-                validator: (val) => val.isEmpty ? 'Enter email ' : null,
+                validator: (val) => val!.isEmpty ? 'Enter email ' : null,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -64,7 +64,7 @@ class _SignInPageState extends State<SignInPage> {
                 decoration: textInputDecoration('Password'),
                 
                 validator: (val) =>
-                    val.length < 6 ? 'Enter a password 6+ char long ' : null,
+                    val!.length < 6 ? 'Enter a password 6+ char long ' : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -73,14 +73,14 @@ class _SignInPageState extends State<SignInPage> {
               SizedBox(height: 20.0),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.indigo[300],
+                    backgroundColor: Colors.indigo[300],
                   ),
                   child: Text(
                     'Sign in',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       dynamic result = await _auth.signInWithEmailAndPassword(
                           email, password);
                       if (result == null) {

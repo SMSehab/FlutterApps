@@ -5,7 +5,7 @@ import 'package:kinbo/views/shared/input_decoration.dart';
 class RegisterPage extends StatefulWidget {
   //const RegisterPage({ Key? key }) : super(key: key);
 
-  final Function toggleView;
+  final Function? toggleView;
   RegisterPage({this.toggleView});
 
   @override
@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
              color: Colors.white,
             ),),
             onPressed: () {
-              widget.toggleView();
+              widget.toggleView!();
             },
           ),
         ],
@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration("Email"),
-                validator: (val) => val.isEmpty ? 'Enter email ' : null,
+                validator: (val) => val!.isEmpty ? 'Enter email ' : null,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFormField(
                 decoration: textInputDecoration("Password"),
                 validator: (val) =>
-                    val.length < 6 ? 'Enter a password 6+ char long ' : null,
+                    val!.length < 6 ? 'Enter a password 6+ char long ' : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -72,14 +72,14 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(height: 20.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.indigo[300],
+                  backgroundColor: Colors.indigo[300],
                 ),
                 child: Text(
                   'Sign up',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  if (_formKey.currentState.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         email, password);
                     if (result == null) {

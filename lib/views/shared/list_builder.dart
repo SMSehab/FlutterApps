@@ -12,7 +12,7 @@ class ListBuilder extends StatefulWidget {
   final List buddy;
   final String user;
   final bool heart;
-  ScrollPhysics physics = ScrollPhysics();
+  ScrollPhysics ? physics  = ScrollPhysics();
   ListBuilder(this.buddy, this.user, this.heart, {this.physics});
   //const ListBuilder({ Key? key }) : super(key: key);
 

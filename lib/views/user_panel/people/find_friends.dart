@@ -9,9 +9,7 @@ import 'package:kinbo/views/shared/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 // Find friend page, where a user can search for his friend.
-
 
 class FindFriends extends StatefulWidget {
   // final String uid;
@@ -35,27 +33,26 @@ class _FindFriendsState extends State<FindFriends> {
         stream: DatabaseService(uid: _user.uid, query: searchName).buddySearch,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<Buddy> _buddies = snapshot.data;
+            List<Buddy>? _buddies = snapshot.data;
             return Column(
               children: [
                 searchBox(),
-                (_buddies.length == 0)
-                    // if there is no user on list, 
-                    // shows this text. 
+                (_buddies!.length == 0)
+                    // if there is no user on list,
+                    // shows this text.
                     ? Container(
                         decoration: BoxDecoration(
                             //color: Colors.greenAccent,
                             border: Border.all(
-                                color: Colors.pink[300], width: 1.5)),
+                                color: Colors.pink[300] ?? Colors.pink,
+                                width: 1.5)),
                         padding: EdgeInsets.all(10),
                         margin: EdgeInsets.all(30),
                         //color: Colors.green[100],
                         child: Text(
-                          """SEARCH WITH EXACT FULL NAME. 
+                          """"To find a friend, enter their exact username. We value your privacy, so we keep profiles hidden to prevent unwanted followers. Only users who know the correct username can find a specific profile.
 
-We believe in privacy. We keep users' profile hidden, making it hard to be followed by unknown users randomly. Only the one, provided with an authentic user ID, can access a specific user. 
-We strongly recommend you to make your user name unique and complex, so that unknown people can't guess it and follow you. Share it only with your trusted friends. 
-For any suggestion, please contact us on smsehab0@gmail.com .
+For your security, we suggest creating a unique and complex username that's difficult to guess. Share it only with people you trust. If you have any suggestions, please email us at smsehab0@gmail.com." 
                     """,
                           //textAlign: TextAlign.center,
                           softWrap: true,
@@ -65,13 +62,12 @@ For any suggestion, please contact us on smsehab0@gmail.com .
                             fontWeight: FontWeight.w400,
                           )),
                         ))
-                    
-                    
+
                     // otherwise shows the result list
                     : Expanded(
                         child: ListBuilder(
                           _buddies,
-                          _user.uid,
+                          _user.uid ?? '',
                           true,
                         ),
                       ),
@@ -82,7 +78,6 @@ For any suggestion, please contact us on smsehab0@gmail.com .
           }
         });
   }
-
 
   // search box to search user by name
   Widget searchBox() {
@@ -98,7 +93,8 @@ For any suggestion, please contact us on smsehab0@gmail.com .
                 prefixIcon: Icon(Icons.search, color: Colors.indigo[400]),
                 hintText: 'Search...',
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.indigo[400], width: 2.0),
+                  borderSide: BorderSide(
+                      color: Colors.indigo[400] ?? Colors.indigo, width: 2.0),
                 )),
             onChanged: (val) {
               setState(() {
@@ -107,40 +103,4 @@ For any suggestion, please contact us on smsehab0@gmail.com .
             }));
   }
 }
-// Part of pagination-helper widget, may need later.................
-//   return Column(
-//     children: [
-//       searchBox(),
-//       Expanded(
-//         child: PaginateFirestore(
-//           itemBuilder: (index, context, doc) {
-//             Buddy buddy = Buddy(
-//                     uid: doc['uid'] ?? null,
-//                     name: doc['name'] ?? null,
-//                     bio: doc['bio'] ?? null,
-//                     location: doc['location'] ?? null,
-//                     time: doc['time'] ?? null,
-//                     image: doc['image'] ?? null,
-//                     friends: doc['friends']) ??
-//                 null;
 
-//             return listTile(buddy, _user.uid);
-//           },
-//           query: //(searchName != "" && searchName != null)
-//               // ?
-//               DatabaseService()
-//                   .buddyCollection
-//                   .orderBy('bio')
-//                   .where('name', isEqualTo: searchName)
-//           // : DatabaseService()
-//           //     .buddyCollection
-//           //     .orderBy('name') //.snapshots(),
-//           ,
-//           itemBuilderType: PaginateBuilderType.listView,
-//           isLive: true,
-//           //reverse: true,
-//         ),
-//       ),
-//     ],
-//   );
-// }

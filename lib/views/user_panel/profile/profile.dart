@@ -32,10 +32,10 @@ class _ProfileState extends State<Profile> {
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
 
-  String _currentName;
-  String _currentBio;
+  String ? _currentName;
+  String ? _currentBio;
 
-  List<UserData> _followers = [];
+  List<UserData?> _followers = [];
 
   @override
   void initState() {
@@ -45,14 +45,15 @@ class _ProfileState extends State<Profile> {
 
   //this is one time future method. that's why don't updates like stream.
   Future<void> _getFollowers() async {
-    UserData me = await DatabaseService()
+    UserData? me = await DatabaseService()
         .buddyCollection
         .doc(widget.uid)
         .get()
         .then(DatabaseService().userDataFromSnapshot);
-    if (me.friends != null) {
-      for (int i = 0; i < me.friends.length; i++) {
-        String id = me.friends[i];
+    final friends = me?.friends;
+    if (friends != null) {
+      for (int i = 0; i < friends.length; i++) {
+        String id = friends[i];
         _followers.add(await DatabaseService()
             .buddyCollection
             .doc(id)
@@ -66,7 +67,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserObj>(context);
     final _following = Provider.of<List<Friend>>(context) ?? [];
-    final userData = Provider.of<UserData>(context);
+    final userData = Provider.of<UserData?>(context);
 
     if (userData != null) {
       return SingleChildScrollView(
@@ -89,7 +90,7 @@ class _ProfileState extends State<Profile> {
                             shape: BoxShape.rectangle,
                             color: Colors.white,
                             borderRadius:
-                                BorderRadius.circular(Constant.padding),
+                            BorderRadius.circular(Constant.padding),
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black26,
@@ -121,9 +122,9 @@ class _ProfileState extends State<Profile> {
                                   initialValue: userData.name,
                                   decoration: textInputDecoration("name"),
                                   validator: (val) =>
-                                      val.length > 2 && val.length < 26
-                                          ? null
-                                          : ' length must be 3-25 ',
+                                  val!.length > 2 && val.length < 26
+                                      ? null
+                                      : ' length must be 3-25 ',
                                   onChanged: (val) =>
                                       setState(() => _currentName = val),
                                   autovalidateMode: AutovalidateMode.always,
@@ -144,11 +145,11 @@ class _ProfileState extends State<Profile> {
                                 //textAlign: TextAlign.center,
                                 initialValue: userData.bio,
                                 decoration: textInputDecoration("bio"),
-                                validator: (val) => val.isEmpty
+                                validator: (val) => val!.isEmpty
                                     ? 'Tell us about you !'
-                                    : val.length > 500
-                                        ? ' max length is 500 '
-                                        : null,
+                                    : val!.length > 500
+                                    ? ' max length is 500 '
+                                    : null,
                                 onChanged: (val) =>
                                     setState(() => _currentBio = val),
 
@@ -161,7 +162,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       Positioned(
-                          child: UploadPhoto(userData.image, widget.uid)),
+                          child: UploadPhoto(userData.image ?? '', widget.uid)),
                     ],
                   ),
                 ),
@@ -176,7 +177,7 @@ class _ProfileState extends State<Profile> {
                     // ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.pink[300],
+                        backgroundColor: Colors.pink[300],
                       ),
                       onPressed: () async {
                         await _auth.signOut();
@@ -192,14 +193,14 @@ class _ProfileState extends State<Profile> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.indigo[300],
+                        backgroundColor: Colors.indigo[300],
                       ),
                       onPressed: () async {
                         //await uploadImageAndGetUrl(user.uid);
                         // print('Url found ');
                         // print(_imageUrlFromCloud);
 
-                        if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState!.validate()) {
                           await DatabaseService(uid: user.uid).updateUserData(
                             name: _currentName ?? userData.name,
                             bio: _currentBio ?? userData.bio,
@@ -222,10 +223,10 @@ class _ProfileState extends State<Profile> {
 
                 SizedBox(
                   height: 2.0,
-                ), 
+                ),
                 ListBuilder(
                   _following,
-                  user.uid,
+                  user.uid?? '',
                   true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
@@ -239,7 +240,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 ListBuilder(
                   _followers,
-                  user.uid,
+                  user.uid??'',
                   false,
                   physics: NeverScrollableScrollPhysics(),
                 ),

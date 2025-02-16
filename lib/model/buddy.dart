@@ -3,13 +3,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 // User Model in different name to avoid conflict during stream call.
 class Buddy {
-  final String uid; 
-  final String name;
-  final String bio;
-  final GeoPoint location;
-  final String image;
-  final List friends;
-  final String time;
+  final String? uid;
+  final String? name;
+  final String? bio;
+  final GeoPoint? location;
+  final String? image;
+  final List? friends;
+  final String? time;
 
   Buddy({
     this.uid,
@@ -23,13 +23,13 @@ class Buddy {
 }
 
 class Friend {
-  final String uid; 
-  final String name;
-  final String bio;
-  final GeoPoint location;
-  final String image;
-  final List friends;
-  final String time;
+  final String? uid;
+  final String? name;
+  final String? bio;
+  final GeoPoint? location;
+  final String? image;
+  final List? friends;
+  final String? time;
 
   Friend({
     this.uid,

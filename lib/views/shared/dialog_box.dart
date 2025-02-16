@@ -11,9 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 // this dialog box shows up with user name, 
 // profile picture, and descriptions.
 class DialogBox extends StatefulWidget {
-  final String title, descriptions, image;
+  final String? title, descriptions, image;
 
-  const DialogBox({Key key, this.title, this.descriptions, this.image})
+  const DialogBox({Key ? key, this.title, this.descriptions, this.image})
       : super(key: key);
 
   @override
@@ -64,7 +64,7 @@ class _DialogBoxState extends State<DialogBox> {
                   ),
                   child: Center(
                     child: Text(
-                      widget.title,
+                      widget.title ?? '',
                       style: GoogleFonts.lato(
                         textStyle: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600),
@@ -80,7 +80,7 @@ class _DialogBoxState extends State<DialogBox> {
                   height: 110,
                   child: SingleChildScrollView(
                     child: Text(
-                      widget.descriptions,
+                      widget.descriptions ?? '',
                       style: GoogleFonts.lato(
                         textStyle: TextStyle(fontSize: 14),
                       ),
@@ -104,7 +104,7 @@ class _DialogBoxState extends State<DialogBox> {
                     borderRadius: BorderRadius.all(
                         Radius.circular(Constants.avatarRadius)),
                     child: Image.network(
-                      widget.image,
+                      widget.image ?? '',
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,

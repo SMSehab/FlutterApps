@@ -26,17 +26,17 @@ class UploadPhoto extends StatefulWidget {
 
 class _UploadPhotoState extends State<UploadPhoto> {
   _imgFromCamera() async {
-    XFile image = await ImagePicker()
+    XFile? image = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 50);
-    String _image = image.path;
+    String _image = image!.path;
     uploadImage(widget.uid, _image);
 
   }
 
   _imgFromGallery() async {
-    XFile image = await ImagePicker()
+    XFile? image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 50);
-    String _image = image.path;
+    String _image = image!.path;
     uploadImage(widget.uid, _image);
   }
 
